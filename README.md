@@ -1,26 +1,33 @@
 # todo-vue-pwa-firebase
 
-## Project setup
-```
-yarn install
-```
+# Features
+- Awesome animations
+- Offline capability (must visit page at least 1 time to work)
+- Realtime
+- CRUD todo (if offline action will be sync when the app go back)
+- Progressive Web App
+- Responsive design
+- Native mobile app
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+# Technologies
+- Vue.js
+- Vuex
+- Sass
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+# Testing tool
+- Mocha
+- Chai
 
-### Lints and fixes files
-```
-yarn run lint
-```
+# Setup
+- edit config.js in `src/firebase`
 
-### Run your unit tests
-```
-yarn run test:unit
-```
+# PWA - Commands
+- yarn install - install all needed dependency
+- yarn serve - hmr develop at localhost:3000
+- yarn serve:docs - hmr develop isolated component at localhost:6060
+- yarn build - build application
+- yarn build:docs - build document
+- yarn test:unit - run unit tests
+- yarn test:watch - run unit tests with watch mode
+- yarn test:debug - run unit tests with watch and debug mode
+- yarn test:coverage - view test coverage
