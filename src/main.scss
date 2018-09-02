@@ -1,0 +1,52 @@
+.textbox {
+    &,
+    &:active,
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      background: transparent;
+      outline-color: white;
+      border: 1px solid rgba(255,255, 255 , 0.5);
+      border-radius: 3px;
+      padding: 6px 12px;
+    }
+}
+
+.btn-link {
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    color: white !important
+  }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white
+}
+
+/*
+  Custom vue-bounce-checkbox theme
+*/
+.bouncechk {
+  &__input + &__label {
+    &--white {
+      // Checkbo border color
+      border: 2px solid white;
+      &:hover { // hover color
+        background-color: rgba(white, 0.2);
+      }
+      &::after{ // Riple
+        background-color: rgba(white, 0.5);
+      }
+      &::before { // Check
+        border-color: rgba(#ffffff, 1);
+      }
+    }
+  }
+  &__input:checked + &__label {
+    &--white { // Checkbox background when checked
+      background-color: rgba(white, 0.7)
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import './variable.scss'
+  
+@keyframes UncheckAnimation
+  100%
+    opacity: 0 !important
+  0%
+    opacity: 1
+@keyframes Riple2
+  0%
+    transform: scale(0)
+    opacity: 1
+    border-radius: 50%
+  50%
+    transform: scale(15)
+    opacity: 1
+  100%
+    opacity: 0
+    transform: scale(25)
+@keyframes Riple
+  0%
+    transform: scale(0)
+    opacity: 1
+    border-radius: 50%
+  50%
+    transform: scale(15)
+    opacity: 1
+  100%
+    opacity: 0
+    transform: scale(25)
+@keyframes LabelCheck
+  from
+    transform: scale(1.2)
+  to
+    transform: scale(1)
+@keyframes LabelUncheck
+  from
+    transform: scale(1)
+  to
+    transform: scale(0.8)
+
+@keyframes CheckAnimation
+  0% 
+    width: 0px
+    height: 0px
+  
+  50% 
+    width: #{$size/4}px
+    height: 0px
+  100%
+    width: #{$size/4}px
+    height: #{$size/2}px
+    

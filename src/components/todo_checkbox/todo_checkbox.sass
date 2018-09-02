@@ -1,0 +1,101 @@
+@import './_animation.sass'
+@import './_variable.scss'
+@import '../../_variable.scss'
+
+.bouncechk
+  display: flex
+  align-items: center
+
+  &__wrapper
+    display: inline-block
+    position: relative
+    margin-right: 8px
+    width: #{$size}px
+    height: #{$size+5}px 
+
+    & > label 
+      width: #{$size}px
+      height: #{$size}px
+      border: 2px solid #{$borderColor}
+
+      // Marker
+      &::before
+        width: #{$size/4}px
+        height: #{$size/2}px
+        bottom: #{($size/2)-2}px
+        left: #{$size/6}px
+
+  // Checkbox
+  &__label
+    display: block
+    border-radius: 2px
+    margin-bottom: 0px
+    margin-right: 7px
+    transition: all 250ms cubic-bezier(0.4, 0, 0.23, 1)
+    cursor: pointer
+    overflow: visible
+    position: absolute
+    top: 0
+    left: 0
+
+  // Text
+  &__text
+    &,
+    &:hover,
+    &:active,
+    &:focus
+    color: $white !important
+    text-decoration: none
+  
+  // Hide checkbox
+  &__input
+    width: 0
+    height: 0
+
+    // Animation bounce + ripple
+    &:not(:checked) + .bouncechk__label
+      animation: LabelUncheck 125ms linear
+        
+      &::after
+        animation: Riple 1s linear
+
+    // Animation unbounce + ripple
+    &:checked + .bouncechk__label
+      animation: LabelCheck 250ms linear
+      
+      &::after
+        animation: Riple 1s linear
+
+    // Ripple
+    + .bouncechk__label::after
+      content: ""
+      opacity: 0
+      position: absolute
+      top: 50%
+      left: 50%
+      padding: 1px
+      border-radius: 50%
+      z-index: 0
+    
+    // Animation check
+    &:checked + .bouncechk__label::before
+      opacity: 1
+      animation: CheckAnimation 250ms linear
+
+    // Check animation
+    &:checked + .bouncechk__label
+      background: rgba(255,255,255,.08)
+
+    // Checker
+    + .bouncechk__label::before
+      content: ""
+      position: absolute
+      transform: rotate(45deg)
+      transform-origin: 0% 100%
+      border-right: 2px solid $white
+      border-bottom: 2px solid $white
+      opacity: 0
+
+    // Animation uncheck
+    &:not(:checked) + .bouncechk__label:before
+      animation: UncheckAnimation 250ms linear
