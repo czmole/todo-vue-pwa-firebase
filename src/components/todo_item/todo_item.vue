@@ -58,6 +58,7 @@ export default {
     exitEditMode() {
       this.isEditMode = false;
     },
+    
     deleteTodo() {
       /**
      * Delete todo event. Parameter: todo string
@@ -81,6 +82,7 @@ export default {
       this.$emit("onUpdate", { ...this.todo, name: this.updateTodoName });
       this.isEditMode = false
     },
+
     toggleTodo() {
       this.$emit("onUpdate", { ...this.todo, completed: !this.todo.completed });
     }

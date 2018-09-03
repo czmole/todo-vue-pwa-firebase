@@ -63,6 +63,7 @@ describe('Checkbox.vue', () => {
     checkbox.trigger('click')
     expect(wrapper.emitted('onToggle')).not.to.be.undefined
   })
+  
   it('should assign textClass add text props to span', () => {
     wrapper = shallowMount(Checkbox, {
       propsData: {

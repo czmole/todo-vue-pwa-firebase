@@ -4,6 +4,7 @@
       <input
         ref="input"
         @input="toggleCheckbox"
+        @click="toggleCheckbox"
         :checked='checked'
         type='checkbox'
         class="bouncechk__input"
@@ -63,10 +64,6 @@ export default {
       return ['bouncechk__text', this.textClass || '']
     },
 
-    computedLabelClass () {
-      return ['bouncechk__label',  'bouncechk__label--' + (this.modifierClass || 'blue')]
-    },
-    
     computedId () {
       return this.id || makeid()
     }

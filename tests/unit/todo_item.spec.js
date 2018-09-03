@@ -130,16 +130,39 @@ describe('todo item', () => {
   describe('update', () => {
     it('set update todo name when enter edit mode', () => {
       // Click edit button
+      const wrapper = mount(todo_item, {
+        propsData: {
+          todo: mockedTodo
+        }
+      })
+
+      const editButton = wrapper.find('button.todo-item__btn-edit')
+      expect(editButton.exists()).to.be.true
+      editButton.trigger('click')
 
       // Expect update todo name to be todo.name
+      expect(wrapper.vm.updateTodoName).to.equal('test')
     })
 
     it('dispatch event onUpdate with todo being toggle when click input:checkbox', () => {
       // Init
+      const wrapper = mount(todo_item, {
+        propsData: {
+          todo: mockedTodo
+        }
+      })
 
       // Find and press check box
+      const checkbox = wrapper.find('input[type="checkbox"]')
+      expect(checkbox.exists()).to.be.true
+      checkbox.trigger('click')
 
       // Expect to emit update when completed being toggle
+      expect(wrapper.emitted('onUpdate')[0]).to.eql([
+        Object.assign({}, mockedTodo, {
+          completed: false
+        })
+      ])
     })
 
     it('dispatch event onUpdate and set data editMode to false with new name when click button:rename in edit mode', () => {
@@ -223,6 +246,25 @@ describe('todo item', () => {
       editButton.trigger('click')
       await Vue.nextTick()
       expect(wrapper.vm.isEditMode).to.be.true
+    })
+
+    it('set editMode = false when click goBack button', async () => {
+      const wrapper = mount(todo_item, {
+        propsData: {
+          todo: mockedTodo
+        },
+        data () {
+          return {
+            updateTodoName: '',
+            isEditMode: true
+          }
+        } 
+      })
+
+      const goBackButton = wrapper.find('button.todo-item__btn-goBack')
+      goBackButton.trigger('click')
+      await Vue.nextTick()
+      expect(wrapper.vm.isEditMode).to.be.false
     })
   })
 })
