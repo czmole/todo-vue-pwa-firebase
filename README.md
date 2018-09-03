@@ -27,7 +27,8 @@
 - yarn serve:docs - hmr develop isolated component at localhost:6060
 - yarn build - build application
 - yarn build:docs - build document
-- yarn test:unit - run unit tests
+- yarn test:unit - run unit tests for company
+- yarn test:integration - run unit tests for service and store
 - yarn test:watch - run unit tests with watch mode
 - yarn test:debug - run unit tests with watch and debug mode
 - yarn test:coverage - view test coverage

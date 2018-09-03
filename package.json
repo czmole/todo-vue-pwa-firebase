@@ -6,9 +6,14 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "test:watch": "vue-cli-service test:unit --watch",
-    "test:debug": "vue-cli-service test:unit --watch --inspect-brk",
+
+    
+    "test:unit": "vue-cli-service test:unit 'tests/**/**/*.spec.js'",
+    "test:watch": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch ",
+    "test:debug": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch --debug-brk ",
+    
+    "t": "vue-cli-service test:unit 'tests/stores/todo/*.spec.js' --watch --debug-brk",
+
     "serve:docs": "vue-styleguidist server",
     "build:docs": "vue-styleguidist build"
   },
