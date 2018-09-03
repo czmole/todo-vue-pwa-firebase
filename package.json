@@ -11,7 +11,7 @@
     "test:watch": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch ",
     "test:debug": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch --debug-brk",
     "t:debug": "vue-cli-service test:unit --inspect-brk --watch",
-    "t": "vue-cli-service test:unit 'tests/unit/todo_item.spec.js' --watch",
+    "t": "vue-cli-service test:unit 'tests/unit/todo_router.spec.js' --watch",
     "serve:docs": "vue-styleguidist server",
     "build:docs": "vue-styleguidist build"
   },
@@ -38,6 +38,7 @@
     "chai": "^4.1.2",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "sinon": "^6.1.5",
     "vue-styleguidist": "^1.8.3",
     "vue-template-compiler": "^2.5.17"
   },
