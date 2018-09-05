@@ -5,7 +5,7 @@ import {
   setOffline,
   setOnline,
   enableLoading,
-  hideLoading
+  hideLoading,
 } from '../../../src/modules/app/app_mutation'
 
 import {
@@ -15,7 +15,14 @@ import {
 /**
  * Test
  */
+
 describe('app_mutation', () => {
+  const mockedAddTodo = {
+    key: 123,
+    completed: false,
+    name: 'test'
+  }
+
   it('set isOnline = false when setOffline', () => {
     const state = Object.assign({}, app_state)
     state.isOnline = false

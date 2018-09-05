@@ -29,7 +29,7 @@ let mockedState = {
     { key: 123, completed: false, name: 'sync _noname' }
   ],
   
-  pendingAddUnsyncTodo: [
+  pendingAddUnsyncTodos: [
     { key: 123, completed: true, name: 'unsync_test' },
     { key: 123, completed: false, name: 'unsync_test123' },
     { key: 123, completed: false, name: 'unsync _noname' }

@@ -29,9 +29,11 @@ describe('app action', () => {
       expect(mockedCommit.callCount).to.equal(1)
       expect(mockedCommit.args[0][0]).to.equal('showLoading')
     })
+
     it('call load todo', () => {
       expect(mockedLoadTodo.callCount).to.equal(1)
     })
+    
     it('call watch todo', () => {
       expect(mockedWatchTodo.callCount).to.equal(1)
     })

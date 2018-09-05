@@ -7,7 +7,10 @@ import {
   removePendingRemoveSyncTodo,
   removePendingUpdateSyncTodo,
   setFilterKeywords,
-  setFilterState
+  setFilterState,
+  addSyncTodo,
+  removeSyncTodo,
+  updateSyncTodo
 } from '../../../src/modules/todo/todo_mutation'
 
 import {
@@ -16,23 +19,51 @@ import {
 
 
 describe('todo mutation', () => {
+  const mockedAddTodo = {
+    key: 123,
+    completed: true,
+    name: 'test123'
+  }
+  
+  it('add todo to syncTodos when addSyncTodos', () => {
+    const state = Object.assign({}, todo_state)
+    todo_mutation[addSyncTodo](state, mockedAddTodo)
+    expect(state.syncTodos[0]).to.eql(mockedAddTodo)
+  })
+
+  it('remove todo from syncTodoso when removeSyncTodos', () => {
+    const state = Object.assign({}, todo_state)
+    todo_mutation[addSyncTodo](state, mockedAddTodo)
+    todo_mutation[removeSyncTodo](state, mockedAddTodo)
+    expect(state.syncTodos).to.have.length(0)
+  })
+
+  it('update todo from syncTodo when updateSyncTodo', () => {
+    const state = Object.assign({}, todo_state)
+    todo_mutation[addSyncTodo](state, mockedAddTodo)
+    const mockedChangeTodo = Object.assign({}, mockedAddTodo, {
+      name: 'test2'
+    })
+    todo_mutation[updateSyncTodo](state, mockedChangeTodo)
+    expect(state.syncTodos[0]).to.eql(mockedChangeTodo)
+  })
   it('clear pending add unsync todo when clearPendingAddUnsyncTodo', () => {
     const state = Object.assign({}, todo_state)
 
-    state.pendingAddUnsyncTodo = [{
+    state.pendingAddUnsyncTodos = [{
       completed: false,
       name: '123',
       key: 123
     }]
 
     todo_mutation[clearPendingAddUnsyncTodo](state)
-    expect(state.pendingAddUnsyncTodo).to.be.eql([])
+    expect(state.pendingAddUnsyncTodos).to.be.eql([])
   })
 
   it('remove PendingAddUnsyncTodo todo with key when removePendingAddUnsyncTodo', () => {
     const state = Object.assign({}, todo_state)
 
-    state.pendingAddUnsyncTodo = [{
+    state.pendingAddUnsyncTodos = [{
       completed: false,
       name: '123',
       key: 123
@@ -43,8 +74,8 @@ describe('todo mutation', () => {
     }]
 
     todo_mutation[removePendingAddUnsyncTodo](state, 123)
-    expect(state.pendingAddUnsyncTodo).to.have.length(1)
-    expect(state.pendingAddUnsyncTodo).to.be.eql([{
+    expect(state.pendingAddUnsyncTodos).to.have.length(1)
+    expect(state.pendingAddUnsyncTodos).to.be.eql([{
       completed: false,
       name: '123',
       key: 1234
@@ -54,7 +85,7 @@ describe('todo mutation', () => {
   it('remove PendingRemoveSyncTodo todo with key when removePendingRemoveSyncTodo', () => {
     const state = Object.assign({}, todo_state)
 
-    state.pendingRemoveSyncTodo = [{
+    state.pendingRemoveSyncTodos = [{
       completed: false,
       name: '123',
       key: 123
@@ -65,8 +96,8 @@ describe('todo mutation', () => {
     }]
 
     todo_mutation[removePendingRemoveSyncTodo](state, 123)
-    expect(state.pendingRemoveSyncTodo).to.have.length(1)
-    expect(state.pendingRemoveSyncTodo).to.be.eql([{
+    expect(state.pendingRemoveSyncTodos).to.have.length(1)
+    expect(state.pendingRemoveSyncTodos).to.be.eql([{
       completed: false,
       name: '123',
       key: 1234
@@ -76,7 +107,7 @@ describe('todo mutation', () => {
   it('remove PendingUpdateSyncTodo todo with key when removePendingUpdateSyncTodo', () => {
     const state = Object.assign({}, todo_state)
 
-    state.pendingUpdateSyncTodo = [{
+    state.pendingUpdateSyncTodos = [{
       completed: false,
       name: '123',
       key: 123
@@ -87,8 +118,8 @@ describe('todo mutation', () => {
     }]
 
     todo_mutation[removePendingUpdateSyncTodo](state, 123)
-    expect(state.pendingUpdateSyncTodo).to.have.length(1)
-    expect(state.pendingUpdateSyncTodo).to.be.eql([{
+    expect(state.pendingUpdateSyncTodos).to.have.length(1)
+    expect(state.pendingUpdateSyncTodos).to.be.eql([{
       completed: false,
       name: '123',
       key: 1234

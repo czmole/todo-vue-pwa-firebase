@@ -6,7 +6,26 @@ export const removePendingAddUnsyncTodo = 'removePendingAddUnsyncTodo'
 export const removePendingUpdateSyncTodo = 'removePendingUpdateSyncTodo'
 export const removePendingRemoveSyncTodo = 'removePendingRemoveSyncTodo'
 
+export const addSyncTodo = 'addSyncTodo'
+export const removeSyncTodo = 'removeSyncTodo'
+export const updateSyncTodo = 'updateSyncTodo'
+
 export default {
+  [addSyncTodo] (state, todo) {
+    state.syncTodos.push(todo)
+  },
+
+  [removeSyncTodo] (state, removedTodo) {
+    state.syncTodos = state.syncTodos.filter(todo=>todo.key !== removedTodo.key)
+  },
+
+  [updateSyncTodo] (state, updatedTodo) {
+    const index = state.syncTodos.findIndex(todo=>todo.key === updatedTodo.key)
+    if (index !== -1) {
+      state.syncTodos[index] = updatedTodo
+    }
+  },
+  
   [setFilterKeywords] (state, filterKeywords) {
     state.filterKeywords = filterKeywords
   },
@@ -16,18 +35,18 @@ export default {
   },
 
   [clearPendingAddUnsyncTodo] (state) {
-    state.pendingAddUnsyncTodo = new Array()
+    state.pendingAddUnsyncTodos = new Array()
   },
 
   [removePendingAddUnsyncTodo] (state, key) {
-    state.pendingAddUnsyncTodo = state.pendingAddUnsyncTodo.filter(todo=>todo.key!==key)  
+    state.pendingAddUnsyncTodos = state.pendingAddUnsyncTodos.filter(todo=>todo.key!==key)  
   },
 
   [removePendingRemoveSyncTodo] (state, key) {
-    state.pendingRemoveSyncTodo = state.pendingRemoveSyncTodo.filter(todo=>todo.key!==key)
+    state.pendingRemoveSyncTodos = state.pendingRemoveSyncTodos.filter(todo=>todo.key!==key)
   },
 
   [removePendingUpdateSyncTodo] (state, key) {
-    state.pendingUpdateSyncTodo = state.pendingUpdateSyncTodo.filter(todo=>todo.key!==key)
-  }
+    state.pendingUpdateSyncTodos = state.pendingUpdateSyncTodos.filter(todo=>todo.key!==key)
+  },
 }

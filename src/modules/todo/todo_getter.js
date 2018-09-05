@@ -33,7 +33,7 @@ export default {
 
   [getUnSyncTodoMatchKeywordAndFilterState] (state) {
     const syncTodosFilterByFilterKeywords 
-      = filterTodosBaseOnFilterState(state.pendingAddUnsyncTodo, state.filterState)
+      = filterTodosBaseOnFilterState(state.pendingAddUnsyncTodos, state.filterState)
     
     const syncTodosFilterByFIlterKeywordsAndFilterState 
       = filterTodosBaseOnFilterKeywords(syncTodosFilterByFilterKeywords, state.filterKeywords)
