@@ -1,6 +1,7 @@
 # todo-vue-pwa-firebase
 
 # Features
+- 100% Test coverage - LMAO
 - Awesome animations
 - Offline capability (must visit page at least 1 time to work)
 - Realtime

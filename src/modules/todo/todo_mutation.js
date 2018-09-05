@@ -11,42 +11,42 @@ export const removeSyncTodo = 'removeSyncTodo'
 export const updateSyncTodo = 'updateSyncTodo'
 
 export default {
-  [addSyncTodo] (state, todo) {
+  [addSyncTodo](state, todo) {
     state.syncTodos.push(todo)
   },
 
-  [removeSyncTodo] (state, removedTodo) {
-    state.syncTodos = state.syncTodos.filter(todo=>todo.key !== removedTodo.key)
+  [removeSyncTodo](state, removedTodo) {
+    state.syncTodos = state.syncTodos.filter(todo => todo.key !== removedTodo.key)
   },
 
-  [updateSyncTodo] (state, updatedTodo) {
-    const index = state.syncTodos.findIndex(todo=>todo.key === updatedTodo.key)
+  [updateSyncTodo](state, updatedTodo) {
+    const index = state.syncTodos.findIndex(todo => todo.key === updatedTodo.key)
     if (index !== -1) {
       state.syncTodos[index] = updatedTodo
     }
   },
-  
-  [setFilterKeywords] (state, filterKeywords) {
+
+  [setFilterKeywords](state, filterKeywords) {
     state.filterKeywords = filterKeywords
   },
 
-  [setFilterState] (state, filterState) {
+  [setFilterState](state, filterState) {
     state.filterState = filterState
   },
 
-  [clearPendingAddUnsyncTodo] (state) {
+  [clearPendingAddUnsyncTodo](state) {
     state.pendingAddUnsyncTodos = new Array()
   },
 
-  [removePendingAddUnsyncTodo] (state, key) {
-    state.pendingAddUnsyncTodos = state.pendingAddUnsyncTodos.filter(todo=>todo.key!==key)  
+  [removePendingAddUnsyncTodo](state, key) {
+    state.pendingAddUnsyncTodos = state.pendingAddUnsyncTodos.filter(todo => todo.key !== key)
   },
 
-  [removePendingRemoveSyncTodo] (state, key) {
-    state.pendingRemoveSyncTodos = state.pendingRemoveSyncTodos.filter(todo=>todo.key!==key)
+  [removePendingRemoveSyncTodo](state, key) {
+    state.pendingRemoveSyncTodos = state.pendingRemoveSyncTodos.filter(todo => todo.key !== key)
   },
 
-  [removePendingUpdateSyncTodo] (state, key) {
-    state.pendingUpdateSyncTodos = state.pendingUpdateSyncTodos.filter(todo=>todo.key!==key)
+  [removePendingUpdateSyncTodo](state, key) {
+    state.pendingUpdateSyncTodos = state.pendingUpdateSyncTodos.filter(todo => todo.key !== key)
   },
 }

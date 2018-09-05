@@ -47,6 +47,18 @@ describe('todo mutation', () => {
     todo_mutation[updateSyncTodo](state, mockedChangeTodo)
     expect(state.syncTodos[0]).to.eql(mockedChangeTodo)
   })
+
+  it('should not update todo from syncTodo when updateSyncTodo not found key', () => {
+    const state = Object.assign({}, todo_state)
+    todo_mutation[addSyncTodo](state, mockedAddTodo)
+    const mockedChangeTodo = Object.assign({}, mockedAddTodo, {
+      name: 'test2',
+      key: 1234
+    })
+    todo_mutation[updateSyncTodo](state, mockedChangeTodo)
+    expect(state.syncTodos[0]).to.eql(mockedAddTodo)
+  })
+
   it('clear pending add unsync todo when clearPendingAddUnsyncTodo', () => {
     const state = Object.assign({}, todo_state)
 
