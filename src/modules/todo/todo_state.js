@@ -4,5 +4,6 @@ export default {
   syncTodos: new Array(),
   pendingRemoveSyncTodos: new Array(),
   pendingUpdateSyncTodos: new Array(),
-  pendingAddUnsyncTodos: new Array()
+  pendingAddUnsyncTodos: new Array(),
+  isFirstTodoAdded: false
 }

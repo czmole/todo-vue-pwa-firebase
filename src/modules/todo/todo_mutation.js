@@ -10,7 +10,18 @@ export const addSyncTodo = 'addSyncTodo'
 export const removeSyncTodo = 'removeSyncTodo'
 export const updateSyncTodo = 'updateSyncTodo'
 
+export const enableIgnoreFirstTodoAdded = 'enableIgnoreFirstTodoAdded'
+export const disableIgnoreFirstTodoAdded = 'disableIgnoreFirstTodoAdded'
+
 export default {
+  [enableIgnoreFirstTodoAdded] (state) {
+    this.state.isFirstTodoAdded = true
+  },
+
+  [disableIgnoreFirstTodoAdded] (state) {
+    this.state.isFirstTodoAdded = true
+  },
+
   [addSyncTodo](state, todo) {
     state.syncTodos.push(todo)
   },
@@ -21,7 +32,7 @@ export default {
 
   [updateSyncTodo](state, updatedTodo) {
     const index = state.syncTodos.findIndex(todo => todo.key === updatedTodo.key)
-    if (index !== -1) {
+    if (index > 0) {
       state.syncTodos[index] = updatedTodo
     }
   },

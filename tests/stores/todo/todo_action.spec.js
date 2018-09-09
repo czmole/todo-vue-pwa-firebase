@@ -1,13 +1,16 @@
 import todo_action, {
   todoOnAdded,
   todoOnRemoved,
-  todoOnUpdated
+  todoOnUpdated,
+  watchTodo
 } from '../../../src/modules/todo/todo_action';
 
 import {
   addSyncTodo,
   updateSyncTodo,
-  removeSyncTodo
+  removeSyncTodo,
+  disableIgnoreFirstTodoAdded,
+  enableIgnoreFirstTodoAdded,
 } from '../../../src/modules/todo/todo_mutation'
 
 import todo_state from '../../../src/modules/todo/todo_state'
@@ -19,39 +22,71 @@ import {
 } from 'sinon'
 
 describe('todo action', () => {
-  describe('todoOnAdded Change Feed', () => {
-    /**
-     * Setup
-     */
-    const mockedCommit = spy()
-    const mockedAddTodo = {
-      key: '123',
-      completed: false,
-      name: 'test'
-    }
-    const mockedStore = {
-      state: Object.assign({}, todo_state),
-      commit: mockedCommit
-    }
+  describe('watch todo', () => {
+    it('commit enableIgnoreFirstAddedTodo if have no sync todo inside', () => {
+      const mockedCommit = spy()
+      const mockedStore = {
+        todo: {
+          syncTodos: [
+            { name: 'abc', key: 123, completed: false }
+          ],
+        },
+        commit: mockedCommit
+      }
 
-    const mockedRemovePendingAsyncTodo = spy()
-    todo_action[todoOnAdded](
-      mockedStore,
-      mockedAddTodo,
-      mockedRemovePendingAsyncTodo
-    )
-
-    it('commit addSyncTodo when todoOnAddedChangeFeed', () => {
       /**
-       * Test Commit
+       * Assert
        */
-      expect(mockedCommit.args[0][0]).to.equal(addSyncTodo)
-      expect(mockedCommit.args[0][1]).to.eql(mockedAddTodo)
+      todo_action[watchTodo](mockedStore)
+      expect(mockedCommit.calledOnceWith(enableIgnoreFirstTodoAdded)).to.be.true
     })
 
-    it('call removePendingSyncTodo with addedTodo' , () => {
-      expect(mockedRemovePendingAsyncTodo.args[0][0]).to.eql(mockedAddTodo)
+    it('commit disableIgnoreFirstAddedTodo if have sync todo inside', () => {
+      const mockedCommit = spy()
+      const mockedStore = {
+        todo: {
+          syncTodos: [
+            
+          ],
+        },
+        commit: mockedCommit
+      }
+
+      /**
+       * Assert
+       */
+      todo_action[watchTodo](mockedStore)
+      expect(mockedCommit.calledOnceWith(disableIgnoreFirstTodoAdded)).to.be.true
     })
+  })
+
+
+  describe('todoOnAdded Change Feed', () => {
+    it('commit disableIgnoreFirstAddedTodo when ignore first todo', () => {
+      const mockedCommit = spy()
+      const mockedStore = {
+        todo: {
+          syncTodos: [
+            
+          ],
+        },
+        commit: mockedCommit
+      }
+      todo_action[watchTodo](mockedStore)
+       expect(mockedCommit.args[0][0]).to.equal(disableIgnoreFirstTodoAdded)
+    })
+
+    describe('when not ignore first todo', () => {
+      it('commit addSyncTodo when todoOnAddedChangeFeed and call removePendingSyncTodo with addedTodo if isFirstTodoAdded is true', () => {
+        // /**
+        //  * Test Commit
+        //  */
+        // expect(mockedCommit.args[0][0]).to.equal(addSyncTodo)
+        // expect(mockedCommit.args[0][1]).to.eql(mockedAddTodo)
+      })
+    })
+
+
   })
 
   describe('todoOnUpdated Change Feed', () => {
@@ -84,7 +119,7 @@ describe('todo action', () => {
       expect(mockedCommit.args[0][1]).to.eql(mockedUpdatedTodo)
     })
 
-    it('call removePendingSyncTodo with addedTodo' , () => {
+    it('call removePendingSyncTodo with addedTodo', () => {
       expect(mockedPendingFunction.args[0][0]).to.eql(mockedUpdatedTodo)
     })
   })
@@ -119,7 +154,7 @@ describe('todo action', () => {
       expect(mockedCommit.args[0][1]).to.eql(mockedDeleteTodo)
     })
 
-    it('call removePendingSyncTodo with addedTodo' , () => {
+    it('call removePendingSyncTodo with addedTodo', () => {
       expect(mockedRemovePending.args[0][0]).to.eql(mockedDeleteTodo)
     })
   })

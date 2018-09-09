@@ -1,24 +1,39 @@
 export const todoOnAdded = 'todoOnAdded'
 export const todoOnRemoved = 'todoOnRemoved'
 export const todoOnUpdated = 'todoOnUpdated'
+export const watchTodo = 'watchTodo'
 
 import {
   addSyncTodo,
   removeSyncTodo,
-  updateSyncTodo
+  updateSyncTodo,
+  disableIgnoreFirstTodoAdded,
+  enableIgnoreFirstTodoAdded
 } from './todo_mutation'
 
 export default {
-  [todoOnAdded](store, addedTodo, removePendingAddUnsyncTodo) {
-    /**
-     * Remove todo on onsync if have
-     */
-    removePendingAddUnsyncTodo(addedTodo)
+  [watchTodo] (store) {
+    if (store.todo.syncTodos.length > 0) {
+      store.commit(enableIgnoreFirstTodoAdded)      
+    } else {
+      store.commit(disableIgnoreFirstTodoAdded)    
+    }
+  },
 
-    /**
-     * Commit add sync todo
-     */
-    store.commit(addSyncTodo, addedTodo)
+  [todoOnAdded](store, addedTodo, removePendingAddUnsyncTodo) {
+    if (store.state.todo) {
+      /**
+       * Remove todo on onsync if have
+       */
+      removePendingAddUnsyncTodo(addedTodo)
+
+      /**
+       * Commit add sync todo
+       */
+      store.commit(addSyncTodo, addedTodo)
+    } else {
+      store.commit(disableIgnoreFirstTodoAdded)
+    }
   },
 
   [todoOnRemoved](store, addedTodo, removePendingRemoveSyncTodo) {

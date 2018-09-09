@@ -11,7 +11,7 @@
     "test:watch": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch ",
     "test:debug": "vue-cli-service test:unit 'tests/**/**/*.spec.js' --watch --debug-brk",
     "t:debug": "vue-cli-service test:unit --inspect-brk --watch",
-    "t": "vue-cli-service test:unit 'tests/stores/todo/todo_mutation.spec.js' --watch",
+    "t": "vue-cli-service test:unit 'tests/stores/todo/todo_action.spec.js' --watch",
     "serve:docs": "vue-styleguidist server",
     "build:docs": "vue-styleguidist build"
   },

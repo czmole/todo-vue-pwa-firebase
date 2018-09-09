@@ -109,8 +109,12 @@ describe('app action', () => {
       })
 
       it('should dispatch set offlines', () => {
-
+        expect(mockedCommit.calledOnce).to.be.true
       })
+    })
+
+    it('do commit nothing if not auth', () => {
+
     })
   })
 })
