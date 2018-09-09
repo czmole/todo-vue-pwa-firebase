@@ -10,7 +10,9 @@ import {
   setFilterState,
   addSyncTodo,
   removeSyncTodo,
-  updateSyncTodo
+  updateSyncTodo,
+  enableIgnoreFirstTodoAdded,
+  disableIgnoreFirstTodoAdded
 } from '../../../src/modules/todo/todo_mutation'
 
 import {
@@ -24,22 +26,36 @@ describe('todo mutation', () => {
     completed: true,
     name: 'test123'
   }
+
+  it('set ignoreFirstAddedTodo to true when enableIgnoreFirstTodoAdded', () => {
+    const state = JSON.parse(JSON.stringify(todo_state))
+    todo_mutation[enableIgnoreFirstTodoAdded](state)
+    expect(state.isFirstTodoAdded).to.be.false
+  })
+
+  it('set ignoreFirstAddedTodo to false when disableIgnoreFirstTodoAdded', () => {
+    const state = JSON.parse(JSON.stringify(todo_state))
+    todo_mutation[disableIgnoreFirstTodoAdded](state)
+    expect(state.isFirstTodoAdded).to.be.true
+  })
+
+
   
   it('add todo to syncTodos when addSyncTodos', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[addSyncTodo](state, mockedAddTodo)
     expect(state.syncTodos[0]).to.eql(mockedAddTodo)
   })
 
   it('remove todo from syncTodoso when removeSyncTodos', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[addSyncTodo](state, mockedAddTodo)
     todo_mutation[removeSyncTodo](state, mockedAddTodo)
     expect(state.syncTodos).to.have.length(0)
   })
 
   it('update todo from syncTodo when updateSyncTodo', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[addSyncTodo](state, mockedAddTodo)
     const mockedChangeTodo = Object.assign({}, mockedAddTodo, {
       name: 'test2'
@@ -49,19 +65,27 @@ describe('todo mutation', () => {
   })
 
   it('should not update todo from syncTodo when updateSyncTodo not found key', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[addSyncTodo](state, mockedAddTodo)
-    const mockedChangeTodo = {}
-    todo_mutation[updateSyncTodo](state, {})
+    
+    const mockedChangeTodo = Object.assign({}, mockedAddTodo, {
+      name: 'test2',
+      key: 0,
+      completed: false,
+      a: 1
+    })
+    
+    todo_mutation[updateSyncTodo](state, mockedChangeTodo)
     expect(state.syncTodos[0]).to.eql(mockedAddTodo)
   })
 
+
   it('clear pending add unsync todo when clearPendingAddUnsyncTodo', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
 
     state.pendingAddUnsyncTodos = [{
       completed: false,
-      name: '123',
+      name: '1234',
       key: 123
     }]
 
@@ -70,7 +94,7 @@ describe('todo mutation', () => {
   })
 
   it('remove PendingAddUnsyncTodo todo with key when removePendingAddUnsyncTodo', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
 
     state.pendingAddUnsyncTodos = [{
       completed: false,
@@ -92,7 +116,7 @@ describe('todo mutation', () => {
   })
 
   it('remove PendingRemoveSyncTodo todo with key when removePendingRemoveSyncTodo', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
 
     state.pendingRemoveSyncTodos = [{
       completed: false,
@@ -114,7 +138,7 @@ describe('todo mutation', () => {
   })
 
   it('remove PendingUpdateSyncTodo todo with key when removePendingUpdateSyncTodo', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
 
     state.pendingUpdateSyncTodos = [{
       completed: false,
@@ -136,13 +160,13 @@ describe('todo mutation', () => {
   })
 
   it('set filterKeywords when setFilterKeywords', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[setFilterKeywords](state, 'test')
     expect(state.filterKeywords).to.equal('test')
   })
 
   it('set filterState when setFilterState', () => {
-    const state = Object.assign({}, todo_state)
+    const state = JSON.parse(JSON.stringify(todo_state))
     todo_mutation[setFilterState](state, 'test')
     expect(state.filterState).to.equal('test')
   })

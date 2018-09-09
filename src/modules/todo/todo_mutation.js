@@ -15,11 +15,11 @@ export const disableIgnoreFirstTodoAdded = 'disableIgnoreFirstTodoAdded'
 
 export default {
   [enableIgnoreFirstTodoAdded] (state) {
-    this.state.isFirstTodoAdded = true
+    state.isFirstTodoAdded = false
   },
 
   [disableIgnoreFirstTodoAdded] (state) {
-    this.state.isFirstTodoAdded = true
+    state.isFirstTodoAdded = true
   },
 
   [addSyncTodo](state, todo) {
@@ -32,7 +32,8 @@ export default {
 
   [updateSyncTodo](state, updatedTodo) {
     const index = state.syncTodos.findIndex(todo => todo.key === updatedTodo.key)
-    if (index > 0) {
+    
+    if (index !== -1) {
       state.syncTodos[index] = updatedTodo
     }
   },

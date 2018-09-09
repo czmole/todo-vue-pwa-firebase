@@ -46,7 +46,7 @@ describe('todo action', () => {
       const mockedStore = {
         todo: {
           syncTodos: [
-            
+
           ],
         },
         commit: mockedCommit
@@ -65,28 +65,43 @@ describe('todo action', () => {
     it('commit disableIgnoreFirstAddedTodo when ignore first todo', () => {
       const mockedCommit = spy()
       const mockedStore = {
-        todo: {
-          syncTodos: [
-            
-          ],
+        state: {
+          todo: {
+            syncTodos: [
+
+            ],
+          },
         },
         commit: mockedCommit
       }
-      todo_action[watchTodo](mockedStore)
-       expect(mockedCommit.args[0][0]).to.equal(disableIgnoreFirstTodoAdded)
+      todo_action[todoOnAdded](mockedStore, null, null)
+      expect(mockedCommit.args[0][0]).to.equal(disableIgnoreFirstTodoAdded)
     })
+
+
 
     describe('when not ignore first todo', () => {
       it('commit addSyncTodo when todoOnAddedChangeFeed and call removePendingSyncTodo with addedTodo if isFirstTodoAdded is true', () => {
+        const mockedCommit = spy()
+        const mockedStore = {
+          state: {
+            todo: {
+              syncTodos: [
+                { name: 'test', completed: true, key: 123}
+              ],
+            },
+            isFirstTodoAdded: true
+          },
+          commit: mockedCommit
+        }
+        const mockedAddTodo = { name: 'test', completed: true, key: 123}
+        todo_action[todoOnAdded](mockedStore, mockedAddTodo)
         // /**
         //  * Test Commit
         //  */
-        // expect(mockedCommit.args[0][0]).to.equal(addSyncTodo)
-        // expect(mockedCommit.args[0][1]).to.eql(mockedAddTodo)
+        expect(mockedCommit.calledWith(addSyncTodo, mockedAddTodo))
       })
     })
-
-
   })
 
   describe('todoOnUpdated Change Feed', () => {

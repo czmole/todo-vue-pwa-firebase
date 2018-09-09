@@ -21,7 +21,7 @@ export default {
   },
 
   [todoOnAdded](store, addedTodo, removePendingAddUnsyncTodo) {
-    if (store.state.todo) {
+    if (store.state.todo.isFirstTodoAdded) {
       /**
        * Remove todo on onsync if have
        */
