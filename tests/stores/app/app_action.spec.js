@@ -54,7 +54,7 @@ describe('app action', () => {
       const mockedLoadTodo = spy()
       const mockedWatchTodo = spy()
       const mockedUnwatchTodo = spy()
-      const isOnline = () => true
+      const isOnline = true
 
       app_action[onConectivityChange](
         mockedStore,
@@ -81,7 +81,7 @@ describe('app action', () => {
       })
     })
 
-    describe('if offiline and auth', () => {
+    describe('if offline and auth', () => {
       const mockedCommit = spy()
       const mockedStore = {
         state: {
@@ -94,7 +94,7 @@ describe('app action', () => {
       const mockedLoadTodo = spy()
       const mockedWatchTodo = spy()
       const mockedUnwatchTodo = spy()
-      const isOnline = () => true
+      const isOnline = false
 
       app_action[onConectivityChange](
         mockedStore,
@@ -105,11 +105,11 @@ describe('app action', () => {
       )
 
       it('should dispatch unwatch todo', () => {
-        expect(mockedWatchTodo.calledOnce).to.be.true
+        expect(mockedUnwatchTodo.calledOnce).to.be.true
       })
 
       it('should dispatch set offlines', () => {
-        expect(mockedCommit.calledOnce).to.be.true
+        expect(mockedCommit.calledOnceWith('setOffline')).to.be.true
       })
     })
 
